@@ -12,8 +12,10 @@ abstract class Base
     {
         $this->context = Context::getInstance();
 
-        if (function_exists($this::class . '\\init')) {
-            call_user_func_array([$this, 'init']);
+        try {
+            $this->init();
+        } catch (\Throwable $error) {
+            wp_die();
         }
     }
 }

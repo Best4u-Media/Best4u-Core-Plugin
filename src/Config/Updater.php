@@ -67,12 +67,13 @@ class Updater extends Base
 
         $result = wp_remote_retrieve_body(wp_remote_get($url));
         if (empty($result)) {
+            $this->githubApiResult = false;
             return;
         }
 
-        $this->githubApiResult = @json_decode($this->githubApiResult);
+        $this->githubApiResult = @json_decode($result);
 
-        if (!is_array($this->githubApiResult)) {
+        if (!is_array($this->githubApiResult) || !count($this->githubApiResult)) {
             return;
         }
 
@@ -88,6 +89,10 @@ class Updater extends Base
         $this->initPluginData();
         $this->getRepoReleaseInfo();
 
+        if (!isset($this->githubApiResult->tag_name)) {
+            return $transient;
+        }
+
         $doUpdate = version_compare($this->githubApiResult->tag_name, $transient->checked[$this->context->basename()]);
 
         if (!$doUpdate) {
@@ -100,12 +105,12 @@ class Updater extends Base
             $package = add_query_arg(['access_token' => self::ACCESS_TOKEN], $package);
         }
 
-        $update_object = new stdClass();
+        $update_object = new \stdClass();
         $update_object->slug = $this->context->basename();
         $update_object->new_version = $this->githubApiResult->tag_name;
         $update_object->url = $this->pluginData['PluginURI'];
         $update_object->package = $package;
-        $transient->response[$this->context->basename()] = $object;
+        $transient->response[$this->context->basename()] = $update_object;
 
         return $transient;
     }
@@ -115,6 +120,10 @@ class Updater extends Base
         $this->getRepoReleaseInfo();
 
         if (empty($response->slug) || $response->slug !== $this->context->basename()) {
+            return false;
+        }
+
+        if (!isset($this->githubApiResult->tag_name)) {
             return false;
         }
 
