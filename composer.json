@@ -1,0 +1,17 @@
+{
+    "name": "best4u-media/best4u-core-plugin",
+    "description": "Updatable WordPress plugin with our core functionalities",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Best4u\\Core\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daan Hoogendoorn",
+            "email": "dhoogendoorn@best4u.nl"
+        }
+    ],
+    "require": {}
+}
