@@ -15,7 +15,7 @@ class Updater extends Base
     protected $pluginData;
     protected $githubApiResult;
 
-    public function __construct()
+    public function init()
     {
         add_filter('pre_set_site_transient_update_plugins', [$this, 'setTransient']);
         add_filter('plugins_api', [$this, 'setPluginInfo'], 10, 3);

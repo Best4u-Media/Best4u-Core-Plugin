@@ -10,7 +10,7 @@ trait Singleton
     {
     }
 
-    public function getInstance()
+    public static function getInstance()
     {
         if (!self::$instance) {
             self::$instance = new self();
@@ -23,11 +23,11 @@ trait Singleton
     {
     }
 
-    protected function __sleep()
+    public function __sleep()
     {
     }
     
-    protected function __wakeup()
+    public function __wakeup()
     {
     }
 }

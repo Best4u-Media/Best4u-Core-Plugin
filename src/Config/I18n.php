@@ -6,6 +6,11 @@ use Best4u\Core\Common\Abstracts\Base;
 
 class I18n extends Base
 {
+    public function init()
+    {
+        add_action('init', [$this, 'load']);
+    }
+
     public function load()
     {
         load_plugin_textdomain(

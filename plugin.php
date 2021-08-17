@@ -24,7 +24,7 @@ function best4u_core_load()
         deactivate_plugins(plugin_basename(__FILE__));
     }
 
-    new Best4u\Core\Plugin(__FILE__);
+    Best4u\Core\Plugin::load(__FILE__);
 }
 
 best4u_core_load();
