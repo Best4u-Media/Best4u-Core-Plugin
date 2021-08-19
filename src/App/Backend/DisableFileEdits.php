@@ -8,11 +8,15 @@ class DisableFileEdits extends Base
 {
     public function init()
     {
-        add_action('admin_menu', [$this, 'removeItemsFromMenu'], PHP_INT_MAX);
+        add_action('admin_menu', [$this, 'removeItemsFromMenuForNonBest4u'], PHP_INT_MAX);
     }
 
-    public function removeItemsFromMenu()
+    public function removeItemsFromMenuForNonBest4u()
     {
+        if (get_current_user_id() === 1) {
+            return;
+        }
+
         remove_submenu_page('themes.php', 'theme-editor.php');
         remove_submenu_page('plugins.php', 'plugin-editor.php');
     }
