@@ -1,8 +1,8 @@
 <?php
 
-namespace Best4u\Core\Plugin\Common\Utils;
+namespace Best4u\Core\Common\Utils;
 
-use Best4u\Core\Plugin\Config\Plugin;
+use Best4u\Core\Config\Plugin;
 
 class DebugLogger
 {

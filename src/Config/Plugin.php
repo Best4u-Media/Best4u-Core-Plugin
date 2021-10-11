@@ -1,8 +1,8 @@
 <?php
 
-namespace Best4u\Core\Plugin\Config;
+namespace Best4u\Core\Config;
 
-use Best4u\Core\Plugin\Common\Traits\Singleton;
+use Best4u\Core\Common\Traits\Singleton;
 
 class Plugin
 {

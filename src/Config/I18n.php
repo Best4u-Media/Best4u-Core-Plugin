@@ -1,8 +1,8 @@
 <?php
 
-namespace Best4u\Core\Plugin\Config;
+namespace Best4u\Core\Config;
 
-use Best4u\Core\Plugin\Common\Abstracts\Base;
+use Best4u\Core\Common\Abstracts\Base;
 
 class I18n extends Base
 {

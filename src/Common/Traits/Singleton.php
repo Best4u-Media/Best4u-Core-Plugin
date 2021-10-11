@@ -4,30 +4,30 @@ namespace Best4u\Core\Common\Traits;
 
 trait Singleton
 {
-    private static $instance;
+	private static $instance;
 
-    protected function __construct()
-    {
-    }
+	protected function __construct()
+	{
+	}
 
-    public static function getInstance()
-    {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
+	final public static function init(): self
+	{
+		if (!self::$instance) {
+			self::$instance = new self();
+		}
 
-        return self::$instance;
-    }
+		return self::$instance;
+	}
 
-    protected function __clone()
-    {
-    }
+	protected function __clone()
+	{
+	}
 
-    public function __sleep()
-    {
-    }
-    
-    public function __wakeup()
-    {
-    }
+	public function __sleep()
+	{
+	}
+
+	public function __wakeup()
+	{
+	}
 }

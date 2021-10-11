@@ -1,8 +1,8 @@
 <?php
 
-namespace Best4u\Core\Plugin\Common\Utils;
+namespace Best4u\Core\Common\Utils;
 
-use Best4u\Core\Plugin\Common\Utils\DebugLogger;
+use Best4u\Core\Common\Utils\DebugLogger;
 
 class Schema
 {

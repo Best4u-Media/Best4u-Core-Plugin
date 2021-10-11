@@ -3,10 +3,9 @@
 namespace Best4u\Core;
 
 use Best4u\Core\Common\Abstracts\Base;
-use Best4u\Core\Common\Utils\Context;
 use Best4u\Core\Config\I18n;
 use Best4u\Core\Config\Updater;
-use Best4u\Core\Common\Traits\Singleton;
+use Best4u\Core\Common\Utils\TemplateEngine;
 
 /**
  * Class that bootstraps the plugin
@@ -49,6 +48,10 @@ class Bootstrap extends Base
 	protected function getFilesRecursive(string $target)
 	{
 		$files = [];
+
+		if (!is_readable($target)) {
+			return $files;
+		}
 
 		$rii = new \RecursiveIteratorIterator(
 			new \RecursiveDirectoryIterator($target)

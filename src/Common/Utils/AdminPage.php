@@ -1,6 +1,6 @@
 <?php
 
-namespace Best4u\Core\Plugin\Common\Utils;
+namespace Best4u\Core\Common\Utils;
 
 class AdminPage
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Best4u\Core\Plugin\Common\Abstracts;
+namespace Best4u\Core\Common\Abstracts;
 
-use Best4u\Core\Plugin\Common\Utils\Schema;
-use Best4u\Core\Plugin\Config\Plugin;
+use Best4u\Core\Common\Utils\Schema;
+use Best4u\Core\Config\Plugin;
 
 class DatabaseTable
 {

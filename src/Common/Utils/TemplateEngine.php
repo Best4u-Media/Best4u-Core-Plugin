@@ -1,8 +1,8 @@
 <?php
 
-namespace Best4u\Core\Plugin\Common\Utils;
+namespace Best4u\Core\Common\Utils;
 
-use Best4u\Core\Plugin\Common\Abstracts\Base;
+use Best4u\Core\Common\Abstracts\Base;
 use \Twig;
 
 class TemplateEngine extends Base
@@ -18,7 +18,7 @@ class TemplateEngine extends Base
 			$this->plugin->templatesPath()
 		);
 		self::$twig = new Twig\Environment(self::$loader, [
-			// 'cache' => $this->plugin->templatesCachePath(),
+			'cache' => $this->plugin->templatesCachePath(),
 			'auto_reload' => true,
 		]);
 

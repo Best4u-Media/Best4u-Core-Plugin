@@ -1,8 +1,8 @@
 <?php
 
-namespace Best4u\Core\Plugin\Common\Abstracts;
+namespace Best4u\Core\Common\Abstracts;
 
-use Best4u\Core\Plugin\Config\Plugin;
+use Best4u\Core\Config\Plugin;
 
 abstract class Base
 {
