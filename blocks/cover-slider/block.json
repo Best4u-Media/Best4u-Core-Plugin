@@ -5,7 +5,7 @@
 	"title": "Cover Slider",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Example block written with ESNext standard and JSX support – build step required.",
+	"description": "Cover slider.",
 	"supports": {
 		"html": false,
 		"align": ["full", "wide"]
