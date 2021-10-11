@@ -1,0 +1,17 @@
+{
+	"apiVersion": 2,
+	"name": "best4u-blocks/cover-slider",
+	"version": "0.1.0",
+	"title": "Cover Slider",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Example block written with ESNext standard and JSX support – build step required.",
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"]
+	},
+	"textdomain": "cover-slider",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}

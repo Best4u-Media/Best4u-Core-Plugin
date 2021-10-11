@@ -1,0 +1,27 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-best4u-blocks-cover-slider:not([data-block]) {
+	display: flex;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+
+	& > .wp-block-cover {
+		flex: 1;
+		min-width: 100%;
+		max-width: 100%;
+		scroll-snap-align: center;
+		margin: 0;
+	}
+
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}

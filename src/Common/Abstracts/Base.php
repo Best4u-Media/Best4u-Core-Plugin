@@ -1,21 +1,15 @@
 <?php
 
-namespace Best4u\Core\Common\Abstracts;
+namespace Best4u\Core\Plugin\Common\Abstracts;
 
-use Best4u\Core\Common\Utils\Context;
+use Best4u\Core\Plugin\Config\Plugin;
 
 abstract class Base
 {
-    protected $context = null;
+	protected $plugin = null;
 
-    public function __construct()
-    {
-        $this->context = Context::getInstance();
-
-        try {
-            $this->init();
-        } catch (\Throwable $error) {
-            wp_die();
-        }
-    }
+	public function __construct()
+	{
+		$this->plugin = Plugin::init();
+	}
 }

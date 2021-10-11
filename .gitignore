@@ -104,3 +104,7 @@ dist
 .tern-port
 
 /vendor/
+
+/templates-cache/*
+/.vscode
+log.json
