@@ -14,6 +14,32 @@ class Blocks extends Base
 		foreach ($blocks as $blockFile) {
 			require_once $blockFile;
 		}
+
+		add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+	}
+
+	public function enqueueScripts()
+	{
+		$blocks = $this->getBlockFiles();
+
+		foreach ($blocks as $blockName => $blockFile) {
+			$directory = dirname($blockFile);
+
+			$hasFrontendScript = file_exists($directory . '/build/frontend.js');
+			if (!$hasFrontendScript) {
+				continue;
+			}
+
+			wp_enqueue_script(
+				'best4u-blocks-' . $blockName,
+				$this->plugin->url(
+					'blocks/' . $blockName . '/build/frontend.js'
+				),
+				[],
+				$this->plugin->version(),
+				true
+			);
+		}
 	}
 
 	public function getBlockFiles(): array

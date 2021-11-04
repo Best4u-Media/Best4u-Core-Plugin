@@ -16,8 +16,18 @@ import {
 	InnerBlocks,
 	BlockControls,
 	store as blockEditorStore,
+	InspectorControls,
 } from '@wordpress/block-editor'
-import { ToolbarGroup, ToolbarItem, Button, Icon } from '@wordpress/components'
+import {
+	ToolbarGroup,
+	ToolbarItem,
+	Button,
+	Icon,
+	PanelBody,
+	ToggleControl,
+	__experimentalNumberControl as NumberControl,
+	RangeControl,
+} from '@wordpress/components'
 import { createBlock } from '@wordpress/blocks'
 import { dispatch, select } from '@wordpress/data'
 import { useEffect } from '@wordpress/element'
@@ -38,8 +48,16 @@ import './editor.scss'
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, clientId }) {
-	const { align } = attributes
+export default function Edit({ attributes, setAttributes, clientId }) {
+	const {
+		align,
+		useArrows,
+		useDots,
+		enableAutoplay,
+		autoplaySpeed,
+		autoplayPauseOnHover,
+		dotSize,
+	} = attributes
 
 	useEffect(() => {
 		updateAlignment()
@@ -69,6 +87,65 @@ export default function Edit({ attributes, clientId }) {
 
 	return (
 		<>
+			<InspectorControls>
+				<PanelBody title={__('Slider settings')} initialOpen={true}>
+					<ToggleControl
+						label={__('Use arrows')}
+						checked={useArrows}
+						onChange={() =>
+							setAttributes({ useArrows: !useArrows })
+						}
+					/>
+					<ToggleControl
+						label={__('Use dots')}
+						checked={useDots}
+						onChange={() => setAttributes({ useDots: !useDots })}
+					/>
+					{useDots && (
+						<RangeControl
+							label={__('Dot size')}
+							help={__('In pixels')}
+							min={1}
+							max={50}
+							value={dotSize}
+							onChange={(value) =>
+								setAttributes({ dotSize: value })
+							}
+						/>
+					)}
+				</PanelBody>
+				<PanelBody title={__('Autoplay settings')} initialOpen={false}>
+					<ToggleControl
+						label={__('Enable autoplay')}
+						checked={enableAutoplay}
+						onChange={() =>
+							setAttributes({ enableAutoplay: !enableAutoplay })
+						}
+					/>
+					{enableAutoplay && (
+						<>
+							<ToggleControl
+								label={__('Pause on hover')}
+								value={autoplayPauseOnHover}
+								onChange={() =>
+									setAttributes({
+										autoplayPauseOnHover:
+											!autoplayPauseOnHover,
+									})
+								}
+							/>
+							<NumberControl
+								label={__('Autoplay speed')}
+								value={autoplaySpeed}
+								onChange={(value) =>
+									setAttributes({ autoplaySpeed: value })
+								}
+								help={__('In milliseconds')}
+							/>
+						</>
+					)}
+				</PanelBody>
+			</InspectorControls>
 			<BlockControls>
 				<ToolbarGroup>
 					<ToolbarItem

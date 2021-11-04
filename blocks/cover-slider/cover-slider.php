@@ -20,7 +20,8 @@
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/writing-your-first-block-type/
  */
-function create_block_cover_slider_block_init() {
-	register_block_type( __DIR__ );
+function create_block_cover_slider_block_init()
+{
+	register_block_type(__DIR__);
 }
-add_action( 'init', 'create_block_cover_slider_block_init' );
+add_action('init', 'create_block_cover_slider_block_init');

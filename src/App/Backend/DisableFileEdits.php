@@ -3,6 +3,7 @@
 namespace Best4u\Core\App\Backend;
 
 use Best4u\Core\Common\Abstracts\Base;
+use Best4u\Core\Common\Utils\UserIdentifier;
 
 class DisableFileEdits extends Base
 {
@@ -17,7 +18,7 @@ class DisableFileEdits extends Base
 
 	public function removeItemsFromMenuForNonBest4u()
 	{
-		if (get_current_user_id() === 1) {
+		if (UserIdentifier::currentUserIsBest4u()) {
 			return;
 		}
 

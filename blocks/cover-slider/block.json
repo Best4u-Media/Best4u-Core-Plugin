@@ -10,6 +10,36 @@
 		"html": false,
 		"align": ["full", "wide"]
 	},
+	"attributes": {
+		"useArrows": {
+			"type": "boolean",
+			"default": false
+		},
+		"useDots": {
+			"type": "boolean",
+			"default": false
+		},
+		"loop": {
+			"type": "boolean",
+			"default": true
+		},
+		"enableAutoplay": {
+			"type": "boolean",
+			"default": false
+		},
+		"autoplaySpeed": {
+			"type": "number",
+			"default": 6000
+		},
+		"autoplayPauseOnHover": {
+			"type": "boolean",
+			"default": false
+		},
+		"dotSize": {
+			"type": "number",
+			"default": 12
+		}
+	},
 	"textdomain": "cover-slider",
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",

@@ -101,7 +101,7 @@ class Updater extends Base
 	 *
 	 * @return string|bool
 	 */
-	protected function getDownloadUrl(): string|bool
+	protected function getDownloadUrl()
 	{
 		if (empty($this->githubApiResult)) {
 			return false;
