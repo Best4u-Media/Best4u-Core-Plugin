@@ -38,6 +38,31 @@
 		"dotSize": {
 			"type": "number",
 			"default": 12
+		},
+		"arrowSize": {
+			"type": "number",
+			"default": 24
+		},
+		"dotColor": {
+			"type": "string"
+		},
+		"customDotColor": {
+			"type": "string"
+		},
+		"dotActiveColor": {
+			"type": "string"
+		},
+		"customDotActiveColor": {
+			"type": "string"
+		},
+		"_customDotActiveColor": {
+			"type": "string"
+		},
+		"arrowColor": {
+			"type": "string"
+		},
+		"customArrowColor": {
+			"type": "string"
 		}
 	},
 	"textdomain": "cover-slider",

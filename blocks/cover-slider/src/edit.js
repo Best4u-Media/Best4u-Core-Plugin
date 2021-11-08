@@ -17,6 +17,8 @@ import {
 	BlockControls,
 	store as blockEditorStore,
 	InspectorControls,
+	PanelColorSettings,
+	getColorClassName,
 } from '@wordpress/block-editor'
 import {
 	ToolbarGroup,
@@ -40,6 +42,27 @@ import { useEffect } from '@wordpress/element'
  */
 import './editor.scss'
 
+function getColorClassAndStyle(color, backgroundColor = false) {
+	let className
+	const style = {}
+
+	if (!color) {
+		return { className, style }
+	}
+
+	if (color.class) {
+		className = color.class
+	} else {
+		if (backgroundColor) {
+			style.backgroundColor = color.color
+		} else {
+			style.color = color.color
+		}
+	}
+
+	return { className, style }
+}
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -48,7 +71,17 @@ import './editor.scss'
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes, clientId }) {
+export default function Edit({
+	attributes,
+	setAttributes,
+	clientId,
+	dotColor,
+	setDotColor,
+	arrowColor,
+	setArrowColor,
+	dotActiveColor,
+	setDotActiveColor,
+}) {
 	const {
 		align,
 		useArrows,
@@ -57,11 +90,17 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 		autoplaySpeed,
 		autoplayPauseOnHover,
 		dotSize,
+		slideCount,
+		arrowSize,
 	} = attributes
 
 	useEffect(() => {
 		updateAlignment()
 	}, [align])
+
+	useEffect(() => {
+		setAttributes({ _customDotActiveColor: dotActiveColor.color })
+	}, [dotActiveColor])
 
 	const updateAlignment = () => {
 		const { updateBlockAttributes } = dispatch(blockEditorStore)
@@ -85,6 +124,14 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 		replaceInnerBlocks(clientId, innerBlocks)
 	}
 
+	const { className: dotClass, style: dotStyle } = getColorClassAndStyle(
+		dotColor,
+		true
+	)
+
+	const { className: dotActiveClass, style: dotActiveStyle } =
+		getColorClassAndStyle(dotActiveColor, true)
+
 	return (
 		<>
 			<InspectorControls>
@@ -96,22 +143,38 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 							setAttributes({ useArrows: !useArrows })
 						}
 					/>
+					{useArrows && (
+						<>
+							<RangeControl
+								label={__('Arrow size')}
+								help={__('In pixels')}
+								min={1}
+								max={50}
+								value={arrowSize}
+								onChange={(value) =>
+									setAttributes({ arrowSize: value })
+								}
+							/>
+						</>
+					)}
 					<ToggleControl
 						label={__('Use dots')}
 						checked={useDots}
 						onChange={() => setAttributes({ useDots: !useDots })}
 					/>
 					{useDots && (
-						<RangeControl
-							label={__('Dot size')}
-							help={__('In pixels')}
-							min={1}
-							max={50}
-							value={dotSize}
-							onChange={(value) =>
-								setAttributes({ dotSize: value })
-							}
-						/>
+						<>
+							<RangeControl
+								label={__('Dot size')}
+								help={__('In pixels')}
+								min={1}
+								max={50}
+								value={dotSize}
+								onChange={(value) =>
+									setAttributes({ dotSize: value })
+								}
+							/>
+						</>
 					)}
 				</PanelBody>
 				<PanelBody title={__('Autoplay settings')} initialOpen={false}>
@@ -126,7 +189,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 						<>
 							<ToggleControl
 								label={__('Pause on hover')}
-								value={autoplayPauseOnHover}
+								checked={autoplayPauseOnHover}
 								onChange={() =>
 									setAttributes({
 										autoplayPauseOnHover:
@@ -145,6 +208,26 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 						</>
 					)}
 				</PanelBody>
+				<PanelColorSettings
+					title={__('Color settings')}
+					colorSettings={[
+						{
+							value: dotColor.color,
+							onChange: setDotColor,
+							label: __('Dot color'),
+						},
+						{
+							value: arrowColor.color,
+							onChange: setArrowColor,
+							label: __('Arrow color'),
+						},
+						{
+							value: dotActiveColor.color,
+							onChange: setDotActiveColor,
+							label: __('Dot active color'),
+						},
+					]}
+				/>
 			</InspectorControls>
 			<BlockControls>
 				<ToolbarGroup>
@@ -161,6 +244,24 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 					template={[['core/cover', { align }]]}
 					renderAppender={false}
 				/>
+				<div
+					className="slider-dots-preview"
+					style={{
+						'--dotSize': dotSize,
+					}}
+				>
+					<div
+						className={`slider-dot ${dotActiveClass}`}
+						style={dotActiveStyle}
+					/>
+					{Array.from({ length: 4 }).map((_, index) => (
+						<div
+							key={index}
+							className={`slider-dot ${dotClass}`}
+							style={dotStyle}
+						/>
+					))}
+				</div>
 			</div>
 		</>
 	)

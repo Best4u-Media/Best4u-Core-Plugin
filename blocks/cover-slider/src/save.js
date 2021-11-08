@@ -11,7 +11,39 @@ import { __ } from '@wordpress/i18n'
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-import { useBlockProps, InnerBlocks } from '@wordpress/block-editor'
+import {
+	useBlockProps,
+	InnerBlocks,
+	store as blockEditorStore,
+	getColorClassName,
+} from '@wordpress/block-editor'
+
+function getColorClassAndStyle(color, customColor, options = {}) {
+	const settings = {
+		backgroundColor: false,
+		addStyle: false,
+		...options,
+	}
+
+	let className
+	const style = {}
+
+	if (color) {
+		className = getColorClassName(
+			settings.backgroundColor ? 'background-color' : 'color',
+			color
+		)
+	}
+	if (customColor || settings.addStyle) {
+		if (settings.backgroundColor) {
+			style.backgroundColor = customColor
+		} else {
+			style.color = customColor
+		}
+	}
+
+	return { className, style }
+}
 
 /**
  * The save function defines the way in which the different attributes should
@@ -30,6 +62,14 @@ export default function save({ attributes }) {
 		autoplaySpeed,
 		autoplayPauseOnHover,
 		dotSize,
+		arrowSize,
+		dotColor,
+		customDotColor,
+		arrowColor,
+		customArrowColor,
+		dotActiveColor,
+		customDotActiveColor,
+		_customDotActiveColor,
 	} = attributes
 
 	const settings = {
@@ -40,8 +80,28 @@ export default function save({ attributes }) {
 		autoplayPauseOnHover,
 	}
 
+	const { className: dotClass, style: dotStyle } = getColorClassAndStyle(
+		dotColor,
+		customDotColor,
+		{
+			backgroundColor: true,
+		}
+	)
+	const { className: arrowClass, style: arrowStyle } = getColorClassAndStyle(
+		arrowColor,
+		customArrowColor
+	)
+
+	const { className: dotActiveClass, style: dotActiveStyle } =
+		getColorClassAndStyle(dotActiveColor, customDotActiveColor, {
+			backgroundColor: true,
+			addStyle: true,
+		})
+
 	const cssVariables = {
-		'--dot-size': `${dotSize}px`,
+		'--dotSize': `${dotSize}px`,
+		'--arrowSize': `${arrowSize}px`,
+		'--dotActiveColor': _customDotActiveColor,
 	}
 
 	return (
@@ -50,46 +110,52 @@ export default function save({ attributes }) {
 			data-settings={JSON.stringify(settings)}
 			style={cssVariables}
 		>
-			<div className="slider-track">
-				<InnerBlocks.Content />
+			<div className="slider-container">
+				<div className="slider-track">
+					<InnerBlocks.Content />
+				</div>
+				{useArrows && (
+					<div className="slider-arrows">
+						<div className="slider-arrow-prev">
+							<button className={arrowClass} style={arrowStyle}>
+								<svg
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z"
+										fill="currentColor"
+									/>
+								</svg>
+							</button>
+						</div>
+						<div className="slider-arrow-next">
+							<button className={arrowClass} style={arrowStyle}>
+								<svg
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z"
+										fill="currentColor"
+									/>
+								</svg>
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
-			{useArrows && (
-				<div className="slider-arrows">
-					<div className="slider-arrow-prev">
-						<button>
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M16.2426 6.34317L14.8284 4.92896L7.75739 12L14.8285 19.0711L16.2427 17.6569L10.5858 12L16.2426 6.34317Z"
-									fill="currentColor"
-								/>
-							</svg>
-						</button>
-					</div>
-					<div className="slider-arrow-next">
-						<button>
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M10.5858 6.34317L12 4.92896L19.0711 12L12 19.0711L10.5858 17.6569L16.2427 12L10.5858 6.34317Z"
-									fill="currentColor"
-								/>
-							</svg>
-						</button>
-					</div>
+			{useDots && (
+				<div className="slider-dots">
+					<button className={`slider-dot ${dotClass}`} />
 				</div>
 			)}
-			{useDots && <div className="slider-dots"></div>}
 		</div>
 	)
 }

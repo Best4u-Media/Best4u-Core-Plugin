@@ -20,6 +20,8 @@ import './style.scss'
 import Edit from './edit'
 import save from './save'
 
+import { withColors } from '@wordpress/block-editor'
+
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -29,7 +31,11 @@ registerBlockType('best4u-blocks/cover-slider', {
 	/**
 	 * @see ./edit.js
 	 */
-	edit: Edit,
+	edit: withColors({
+		dotColor: 'background-color',
+		dotActiveColor: 'background-color',
+		arrowColor: 'color',
+	})(Edit),
 
 	/**
 	 * @see ./save.js

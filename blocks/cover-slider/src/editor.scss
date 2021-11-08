@@ -6,4 +6,19 @@
 
 .wp-block-best4u-blocks-cover-slider {
 	border: 1px dotted #f00;
+
+	.slider-dots-preview {
+		--dotSize: 12px;
+
+		display: flex;
+		justify-content: center;
+
+		.slider-dot {
+			width: calc(var(--dotSize) * 1px);
+			height: calc(var(--dotSize) * 1px);
+			border-radius: 50%;
+			display: inline-block;
+			margin: 0 5px;
+		}
+	}
 }
