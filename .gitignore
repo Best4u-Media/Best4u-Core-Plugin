@@ -108,3 +108,5 @@ dist
 /templates-cache/*
 /.vscode
 log.json
+
+.DS_Store

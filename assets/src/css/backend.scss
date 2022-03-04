@@ -1,3 +1,65 @@
 .titanic {
 	float: none;
 }
+
+.toplevel_page_best4u-core-settings {
+	#wpcontent {
+		padding-left: 0;
+	}
+
+	.auto-fold {
+		#wpcontent {
+			padding-left: 0;
+		}
+	}
+
+	#best4u-core-plugin {
+		.components-placeholder {
+			background: #f6f6f6;
+			margin: 25px auto;
+			max-width: 750px;
+		}
+
+		.best4u-core {
+			&-header {
+				padding: 20px 10px;
+				background-color: #fff;
+				box-shadow: 0 1px 0 rgba(213, 213, 213, 0.5), 0 1px 2px #eee;
+
+				&-columns {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+				}
+			}
+
+			&-container {
+				margin: 0 auto;
+				max-width: 750px;
+
+				.components-panel {
+					margin-top: 25px;
+
+					&__body {
+						&.is-opened {
+							& > .components-panel__body-title {
+								border-bottom: solid 1px #f0f0f0;
+								margin: -16px -16px 16px;
+							}
+						}
+					}
+				}
+
+				.components-panel__row
+					.components-base-control
+					.components-base-control__field {
+					margin-bottom: 8px;
+				}
+
+				.components-base-control .components-base-control__help {
+					margin-top: 0;
+				}
+			}
+		}
+	}
+}

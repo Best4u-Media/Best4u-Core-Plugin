@@ -6,7 +6,7 @@ use Best4u\Core\Config\Plugin;
 
 class Assets
 {
-	public function enqueueScript($handle, $options = [])
+	public static function enqueueScript($handle, $options = [])
 	{
 		$defaults = [
 			'dependencies' => [],
@@ -40,7 +40,7 @@ class Assets
 		return true;
 	}
 
-	public function enqueueStyle($handle, $options = [])
+	public static function enqueueStyle($handle, $options = [])
 	{
 		$defaults = [
 			'dependencies' => [],

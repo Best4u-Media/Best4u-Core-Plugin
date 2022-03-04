@@ -2,7 +2,7 @@
 /**
  * Plugin Name:		  Best4u Core
  * Description:		  Updatable WordPress plugin with our core functionalities
- * Version:			  0.0.2
+ * Version:			  0.0.3
  * Requires at least: 5.7
  * Requires PHP:      7.4
  * Author:			  Best4u

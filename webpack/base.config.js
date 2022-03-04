@@ -16,7 +16,22 @@ const config = {
 		rules: [
 			{
 				test: /\.js$/,
-				use: 'babel-loader',
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env'],
+						plugins: [
+							'@babel/plugin-transform-async-to-generator',
+							'@babel/plugin-proposal-object-rest-spread',
+							[
+								'@babel/plugin-transform-react-jsx',
+								{
+									pragma: 'wp.element.createElement',
+								},
+							],
+						],
+					},
+				},
 				exclude: /node_modules/,
 			},
 			{

@@ -15,10 +15,7 @@ class PluginPage extends Base
 	{
 		$this->pageHook = $this->addAdminPageForBest4u();
 
-		add_action('admin_print_scripts-' . $this->pageHook, [
-			$this,
-			'enqueueAssets',
-		]);
+		add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
 	}
 
 	public function addAdminPageForBest4u()
@@ -30,6 +27,7 @@ class PluginPage extends Base
 		$this->pageHook = AdminPage::add([
 			'page_title' => __('Best4u Core', 'best4u-core'),
 			'menu_title' => __('Best4u Core', 'best4u-core'),
+			'menu_slug' => 'best4u-core-settings',
 			'position' => 3,
 			'callback' => [$this, 'renderContents'],
 		]);
