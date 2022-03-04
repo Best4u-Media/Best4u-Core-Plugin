@@ -30,7 +30,7 @@ class Plugin
 						'author' => 'Author',
 						'author-uri' => 'Author URI',
 						'text-domain' => 'Text Domain',
-						'domain-path' => 'Domain path',
+						'domain-path' => 'Domain Path',
 						'required-php' => 'Requires PHP',
 						'required-wp' => 'Requires WP',
 						'namespace' => 'Namespace',
